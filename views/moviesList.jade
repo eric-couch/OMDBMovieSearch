@@ -1,0 +1,14 @@
+html
+  head
+    link(rel="stylesheet", href="../stylesheets/style.css")
+  body
+    ul
+    each movie in movies.Search
+      li= movie.Title
+        br
+        a(href="/movies/getMovie?imdb="+movie.imdbID)
+          img(src="#{movie.Poster}", width="100px")
+    form(action="/movies/searchMovies", method="post")
+      input(type="hidden", name="page", value=page)
+      input(type="hidden", name="movieTitle", value=search)
+      input(type="submit", value="Next Page")

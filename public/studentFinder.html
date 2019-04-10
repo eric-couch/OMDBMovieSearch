@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Student Finder</title>
+    <style>
+      .main {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 60px;
+        line-height: 30px;
+      }
+      .main form label {
+        float: left;
+      }
+      .main form input {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <form action="/returnStudent" method="post">
+        <label for="firstName">First Name: </label>
+        <input type="text" name="firstName" id="firstName" /><br />
+        <label for="lastName">Last Name: </label>
+        <input type="text" name="lastName" id="lastName" /><br />
+        <label for="age">Age: </label>
+        <input type="number" name="age" id="age" /><br />
+        <label for="email">Email Address: </label>
+        <input type="text" name="email" id="email" /><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </body>
+</html>
