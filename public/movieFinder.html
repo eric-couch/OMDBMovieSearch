@@ -19,6 +19,10 @@
       .main form input {
         float: right;
       }
+
+      .main form select {
+        float: right;
+      }
     </style>
   </head>
   <body>
@@ -26,7 +30,17 @@
       <div class="main">
         <form action="/movies/searchMovies" method="post">
           <label for="movieTitle">Movie Title: </label>
-          <input type="text" name="movieTitle" id="movieTitle" /><br /><br />
+          <input type="text" name="movieTitle" id="movieTitle" required /><br />
+          <label for="movieYear">Movie Year: </label>
+          <input type="number" name="movieYear" id="movieYear" /><br />
+          <label for="movieType">Movie Type: </label>
+          <select name="movieType"
+            ><option name="all">All</option>
+            <option name="movie">Movie</option>
+            <option name="game">Game</option>
+            <option name="series">Series</option>
+            <option name="show">Show</option> </select
+          ><br /><br />
           <input type="submit" value="Submit" />
         </form>
       </div>
