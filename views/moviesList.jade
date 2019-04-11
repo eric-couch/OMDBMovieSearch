@@ -8,6 +8,9 @@ html
         br
         a(href="/movies/getMovie?imdb="+movie.imdbID)
           img(src="#{movie.Poster}", width="100px")
+        form(action="/movies/addFav", method="post")
+          input(type="hidden", name="imdb", value=movie.imdbID)
+          input(type="submit", value="Add Favorite")
     form(action="/movies/searchMovies", method="post")
       input(type="hidden", name="page", value=page)
       input(type="hidden", name="movieTitle", value=search)
