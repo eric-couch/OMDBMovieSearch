@@ -27,8 +27,16 @@
   </head>
   <body>
     <body>
+      <header>
+        <nav>
+          <ul>
+            <li><a href="/movieFinder.html">Movie Finder</a></li>
+            <li><a href="/movies/getFavs">Favorite Movies</a></li>
+          </ul>
+        </nav>
+      </header>
       <div class="main">
-        <form action="/movies/" method="post">
+        <form action="/movies/searchMovies" method="post">
           <label for="movieTitle">Movie Title: </label>
           <input type="text" name="movieTitle" id="movieTitle" required /><br />
           <label for="movieYear">Movie Year: </label>

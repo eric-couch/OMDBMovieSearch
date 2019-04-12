@@ -1,17 +1,21 @@
-html
-  head
-    link(rel="stylesheet", href="../stylesheets/style.css")
-  body
-    ul
-    each movie in movies.Search
-      li= movie.Title
-        br
-        a(href="/movies/getMovie?imdb="+movie.imdbID)
-          img(src="#{movie.Poster}", width="100px")
-        form(action="/movies/addFav", method="post")
-          input(type="hidden", name="imdb", value=movie.imdbID)
-          input(type="submit", value="Add Favorite")
+extends layout
+block content
+  ul
+  each movie in movies.Search
+    li
+      a(href="/movies/getMovie?imdb="+movie.imdbID class="movieList") #{movie.Title} (#{movie.Year})
+    br
+  if(page != 2)
     form(action="/movies/searchMovies", method="post")
-      input(type="hidden", name="page", value=page)
+      input(type="hidden", name="page", value=prevpage)
       input(type="hidden", name="movieTitle", value=search)
-      input(type="submit", value="Next Page")
+      input(type="hidden", name="movieYear", value=year)
+      input(type="hidden", name="movieType", value=type)
+      input(type="submit", value="Prev Page")
+  | Page (#{page - 1} of #{(Math.ceil(movies.totalResults / 10))})
+  form(action="/movies/searchMovies", method="post")
+    input(type="hidden", name="page", value=page)
+    input(type="hidden", name="movieTitle", value=search)
+    input(type="hidden", name="movieYear", value=year)
+    input(type="hidden", name="movieType", value=type)
+    input(type="submit", value="Next Page")

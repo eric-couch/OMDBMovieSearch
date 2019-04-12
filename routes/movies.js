@@ -15,14 +15,21 @@ router.post("/getMovie", function(req, res, next) {
 
 router.get("/getMovie", function(req, res, next) {
   let movieIMDB = req.query.imdb;
-  let fetchURL = "https://www.omdbapi.com/?apikey=86c39163&i=" + movieIMDB;
+  let fetchURL =
+    "https://www.omdbapi.com/?apikey=86c39163&i=" + movieIMDB + "&plot=full";
   console.log(fetchURL);
+  let fav = favMovies.filter(movie => movie.imdbID == movieIMDB);
+  if (fav.length > 0) {
+    fav = true;
+  } else {
+    fav = false;
+  }
   fetch(fetchURL)
     .then(r => r.json())
-    .then(body => res.render("movies", { movie: body }));
+    .then(body => res.render("movies", { movie: body, fav: fav }));
 });
 
-router.post("/", function(req, res, next) {
+router.post("/searchMovies", function(req, res, next) {
   let movieTitle = req.body.movieTitle;
   let movieYear = req.body.movieYear;
   let movieType = req.body.movieType;
@@ -42,32 +49,37 @@ router.post("/", function(req, res, next) {
   } else {
     nextPage = 2;
   }
-
+  let prevPage = nextPage - 2;
   fetch(fetchURL)
     .then(r => r.json())
     .then(body =>
       res.render("moviesList", {
         search: movieTitle,
+        year: movieYear,
+        type: movieType,
         page: nextPage,
+        prevpage: prevPage,
         movies: body
       })
     );
 });
 
 router.post("/addFav", function(req, res, next) {
-  // a post of some imdb # comes into this function
-  // req.body.imdbID
-  // fetch('https://www.omdbapi.com/?apikey=86c39163&i=' + req.body.imdbID)
-  // favMovies.push(res.body)
   let i = req.body.imdb;
   let fetchURL = "https://www.omdbapi.com/?apikey=86c39163&i=" + i;
   fetch(fetchURL)
     .then(r => r.json())
     .then(body => favMovies.push(body));
-  res.send("Movie Added!");
+  res.redirect("/movieFinder.html");
+});
+
+router.post("/remFav", function(req, res, next) {
+  let i = req.body.imdb;
+  favMovies = favMovies.filter(movie => movie.imdbID != i);
+  res.redirect("/movieFinder.html");
 });
 
 router.get("/getFavs", function(req, res, next) {
-  res.send(favMovies);
+  res.render("favMovies", { favMovies: favMovies });
 });
 module.exports = router;

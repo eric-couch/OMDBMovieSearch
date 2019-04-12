@@ -1,0 +1,7 @@
+extends layout
+block content
+        each movie in favMovies
+                | #{movie.Title}
+                form(action="/movies/remFav", method="post")
+                        input(type="hidden", name="imdb", value=movie.imdbID)
+                        input(type="submit", value="Remove Favorite")
